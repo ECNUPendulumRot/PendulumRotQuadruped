@@ -1,0 +1,8 @@
+<library path="lib/libpr_joint_controller">
+    <class name="pr_cartesian_controller/JointController"
+           type="pr_cartesian_controller::JointController"
+           base_class_type="controller_interface::ControllerBase"/>
+        <description>
+            The pr joint controller.
+        </description>
+</library>

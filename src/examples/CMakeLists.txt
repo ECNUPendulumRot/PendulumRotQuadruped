@@ -12,5 +12,5 @@ include_directories(${catkin_INCLUDE_DIRS})
 
 link_libraries(${catkin_LIBRARIES})
 
-add_executable(example_test_parser src/example_test_parser.cpp)
+add_executable(example_robot_create src/example_robot_create.cpp)
 

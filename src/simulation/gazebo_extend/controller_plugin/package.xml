@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package format="2">
+    <name>controller_plugin</name>
+    <version>0.0.0</version>
+    <description>The pr_joint_control package</description>
+    <maintainer email="1973671061@qq.com">ZhenyuXu</maintainer>
+    <maintainer email="757922306@qq.com">YuZheMao</maintainer>
+    <license>TODO</license>
+    <buildtool_depend>catkin</buildtool_depend>
+    <depend>controller_interface</depend>
+    <depend>hardware_interface</depend>
+    <depend>pluginlib</depend>
+    <depend>roscpp</depend>
+    <depend>pr_joint_msgs</depend>
+    <export>
+        <!-- Other tools can request additional information be placed here -->
+        <controller_interface plugin="${prefix}/plugins.xml"/>
+    </export>
+</package>

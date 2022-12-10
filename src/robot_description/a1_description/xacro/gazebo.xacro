@@ -9,7 +9,7 @@
     </gazebo>
 
     <!-- Show the trajectory of trunk center. -->
-    <xacro:if value="$(arg DRAW)">
+    <xacro:if value="$(arg USE_DRAW)">
         <!-- <gazebo>
             <plugin name="3dplot" filename="libLinkPlot3DPlugin.so">
                 <frequency>10</frequency>

@@ -1,0 +1,31 @@
+<launch>
+
+    <arg name="robot_type" default="a1"/>
+    <arg name="robot_name" default="default"/>
+
+    <!-- internal variable for finding robot package -->
+    <arg name="robot_package" value="$(arg robot_type)_description"/>
+
+    <group ns= "$(arg robot_type)/$(arg robot_name)/gazebo">
+        <!-- load joint controller description file -->
+        <rosparam file="$(find pr_gazebo)/config/$(arg robot_type)_joint_control.yaml" command="load"/>
+    </group>
+
+
+    <group ns="$(arg robot_type)/$(arg robot_name)">
+        <!-- load robot URDF file -->
+        <include file="$(eval find(arg('robot_package')) + '/launch/load_urdf.launch')">
+            <arg name="use_draw" value="false" />
+            <arg name="use_camera" value="false" />
+        </include>
+
+        <param name="robot_name" value="$(arg robot_name)" />
+
+        <!-- spawn robot in gazebo. User can start and terminate the controller -->
+        <node pkg="pr_gazebo" type="spawn_model" name="$(anon spawn_model)"
+            args="$(arg robot_type) $(arg robot_name)" output="screen"/>
+    </group>
+
+    <!-- <node pkg="test" type="test_stand_up" name="$(anon test_stand_up)" output="screen"/> -->
+
+</launch>

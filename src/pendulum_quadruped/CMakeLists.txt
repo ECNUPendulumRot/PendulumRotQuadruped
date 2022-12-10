@@ -4,7 +4,7 @@ project(pendulum_quadruped)
 add_compile_options(-std=c++17)
 
 find_package(catkin REQUIRED COMPONENTS
-  roscpp urdf quadprogpp
+  roscpp urdf quadprogpp kdl_parser
 )
 
 find_package(orocos_kdl REQUIRED)

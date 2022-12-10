@@ -1,0 +1,11 @@
+<launch>
+
+    <arg name="wname" default="gui"/>
+
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(find pr_gazebo)/world/$(arg wname).world"/>
+    </include>
+
+    <node pkg="controller_manager" type="controller_manager" name="controllers_manager" output="screen"/>
+
+</launch>

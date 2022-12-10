@@ -1,0 +1,18 @@
+<launch>
+
+    <arg name="use_urdf" default="false"/>
+
+    <arg name="use_draw" default="false"/>
+    <arg name="use_camera" default="false"/>
+
+    <arg name="user_debug" default="false"/>
+
+    <!-- choose to use xacro file or use URDF file -->
+    <param unless="$(arg use_urdf)" name="robot_description"
+        command="$(find xacro)/xacro --inorder '$(find a1_description)/xacro/robot.xacro'
+        DEBUG:=$(arg user_debug)
+        USE_DRAW:=$(arg use_draw)
+        USE_CAMERA:=$(arg use_camera)"/>
+
+    <param if="$(arg use_urdf)" name="robot_description" textfile="$(find a1_description)/urdf/$(arg robot_type).urdf"/>
+</launch>
