@@ -5,24 +5,31 @@
 
 #include "robot/pr_robot_base.h"
 
+// forward declaration of class Quadruped
+class Quadruped;
+
 /**
- * @brief The QuadLeg enum: front right, front left, rear left, rear right
+ * @typedef QuadrupedPtr: std::shared_ptr<Quadruped>
  */
-enum class QuadLeg {
-  FR, FL, RR, RL
-};
+using QuadrupedPtr = std::shared_ptr<Quadruped>;
 
 /**
  * @typedef LegInfo: std::map<QuadLeg, EndEffectorStat>
  */
-using LegInfo = std::map<QuadLeg, unsigned int>;
+using LegInfo = std::map<unsigned int, unsigned int>;
 
 class Quadruped: public pr_robot::Robot {
 
 public:
 
+  /**
+   * @brief The QuadLeg enum: front right, front left, rear left, rear right
+   */
+  enum QuadLeg {
+    FR, FL, RR, RL
+  };
+
   Quadruped(unsigned int type, std::string robot_name): Robot(type, robot_name) {
-    ;
   }
 
   /**
@@ -39,9 +46,9 @@ public:
    */
   Vec3<double> get_leg_joints(QuadLeg leg);
 
-
   /**
    * @brief add_leg: add a leg to the quadruped
+   * this method is called only when constructing the robot
    * @param tag: name of the tag;
    * @param name: name of end effector
    *
@@ -57,6 +64,13 @@ public:
    */
   static bool valid_leg_tag(const std::string& s);
 
+  /**
+   * @brief set_joint_chain_state: set joint state to a chain, in order from base to endeffector
+   * @attention the
+   * @param joints: the vector of observed joints
+   * @param leg_select: the leg to set states
+   */
+  void set_joint_chain_state(DynamicMat<double>& states, unsigned int leg_select);
 
 private:
 
@@ -68,7 +82,7 @@ private:
   /**
    * @brief d_valid_tags_s: static vector that stores valid foot tags
    */
-  static std::map<std::string, QuadLeg> s_valid_tags;
+  static std::map<std::string, unsigned int> s_valid_tags;
 
 };
 

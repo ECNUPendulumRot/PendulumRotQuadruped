@@ -1,11 +1,11 @@
 #include "robot/pr_robot_types.h"
 
 
-std::map<std::string, QuadLeg> Quadruped::s_valid_tags =
-  {{"front_right", QuadLeg::FR},
-   {"front_left" , QuadLeg::FL},
-   {"rear_right" , QuadLeg::RR},
-   {"rear_left"  , QuadLeg::RL}};
+std::map<std::string, unsigned int> Quadruped::s_valid_tags =
+  {{"front_right", Quadruped::FR},
+   {"front_left" , Quadruped::FL},
+   {"rear_right" , Quadruped::RR},
+   {"rear_left"  , Quadruped::RL}};
 
 
 Vec3<double> Quadruped::get_foot_hold_position(QuadLeg leg)
@@ -16,7 +16,7 @@ Vec3<double> Quadruped::get_foot_hold_position(QuadLeg leg)
 
 Vec3<double> Quadruped::get_leg_joints(QuadLeg leg)
 {
-  return get_joint_angles_chain(d_joint_chains[d_legs[leg]]);
+  return get_joint_chain_angle(d_joint_chains[d_legs[leg]]);
 }
 
 
@@ -37,3 +37,10 @@ bool Quadruped::valid_leg_tag(const std::string &s)
       return true;
   return false;
 }
+
+
+void Quadruped::set_joint_chain_state(DynamicMat<double> &states, unsigned int leg_select)
+{
+  pr_robot::Robot::set_joint_chain_state(states, d_joint_chains[leg_select]);
+}
+

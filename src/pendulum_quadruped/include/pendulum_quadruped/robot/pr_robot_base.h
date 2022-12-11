@@ -118,48 +118,6 @@ public:
 
   void print_robot_info();
 
-  /**
-   * @brief get_joint_state_chain: get the joint state of a chain, including angles and velocity
-   * @param joint_chain: the chain to get state
-   * @return eigen vector of the joint state
-   */
-  inline DynamicMat<double> get_joint_state_chain(JointChain& joint_chain) {
-    DynamicMat<double> m(joint_chain.size(), 2);
-    int joint_num = int(joint_chain.size());
-    for(int i = 0; i != joint_num; i++) {
-      m(i, 1) = joint_chain[i].get_joint_angle();
-      m(i, 2) = joint_chain[i].get_joint_velocity();
-    }
-    return m;
-  }
-
-  /**
-   * @brief get_joint_angles_chain: get the joint angles of a chain
-   * @param joint_chain: the chain to get state
-   * @return eigen vector of the joint angle
-   */
-  inline DynamicVec<double> get_joint_angles_chain(JointChain& joint_chain) {
-    DynamicVec<double> v(joint_chain.size());
-    int joint_num = int(joint_chain.size());
-    for(int i = 0; i != joint_num; i++) {
-      v(i) = joint_chain[i].get_joint_angle();
-    }
-    return v;
-  }
-
-  /**
-   * @brief get_joint_angles_chain: get the joint velocity of a chain
-   * @param joint_chain: the chain to get state
-   * @return eigen vector of the joint velocity
-   */
-  inline DynamicMat<double> get_joint_velocity_chain(JointChain& joint_chain) {
-    DynamicVec<double> v(joint_chain.size());
-    int joint_num = int(joint_chain.size());
-    for(int i = 0; i != joint_num; i++) {
-      v(i) = joint_chain[i].get_joint_velocity();
-    }
-    return v;
-  }
 
 /////////////////////////////// for future utilities ///////////////////////////////
 //  /**
@@ -177,6 +135,35 @@ public:
 //  void add_link(std::string link_name, Link& link);
 
 protected:
+
+  /**
+   * @brief get_joint_state_chain: get the joint state of a chain, including angles and velocity
+   * @param joint_chain: the chain to get state
+   * @return eigen vector of the joint state
+   */
+  DynamicMat<double> get_joint_chain_state(JointChain& joint_chain);
+
+  /**
+   * @brief get_joint_angles_chain: get the joint angles of a chain
+   * @param joint_chain: the chain to get state
+   * @return eigen vector of the joint angle
+   */
+  DynamicVec<double> get_joint_chain_angle(JointChain& joint_chain);
+
+  /**
+   * @brief get_joint_angles_chain: get the joint velocity of a chain
+   * @param joint_chain: the chain to get state
+   * @return eigen vector of the joint velocity
+   */
+  DynamicVec<double> get_joint_chain_velocity(JointChain& joint_chain);
+
+  /**
+   * @brief set_joint_chain_angles: set angles to a chain, in order from base to endeffector
+   * only used in observers
+   * @param states: the angles and velocities of observed joints
+   * @param joint_chain: the joint chain to setup joints
+   */
+  void set_joint_chain_state(DynamicMat<double>& states, JointChain& joint_chain);
 
   /**
    * @brief d_type: the type of robot. quadruped, biped, arm or mixed

@@ -16,11 +16,6 @@ namespace pr_robot {
  */
 using RobotPtr = std::shared_ptr<Robot>;
 
-/**
- * @typedef QuadrupedPtr: std::shared_ptr<Quadruped>
- */
-using QuadrupedPtr = std::shared_ptr<Quadruped>;
-
 template <typename T>
 class RobotFactory {
 

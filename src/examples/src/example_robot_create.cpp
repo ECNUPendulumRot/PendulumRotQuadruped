@@ -13,10 +13,6 @@ int main(int argc, char **argv)
   std::string path_to_urdf = path_to_package + "/urdf/a1.urdf";
 
   pr_robot::RobotGenerator<Quadruped> generator(path_to_description, path_to_urdf);
-
-  printf("generator initiated");
-
   auto quad_ptr = generator.get<0>();
-
   quad_ptr->print_robot_info();
 }
