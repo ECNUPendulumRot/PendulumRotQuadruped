@@ -1,5 +1,4 @@
-#ifndef PR_POSE_TWIST_H
-#define PR_POSE_TWIST_H
+#pragma once
 
 #include "common/pr_eigen_types.h"
 
@@ -115,4 +114,3 @@ private:
 
 }
 
-#endif // PR_ROBOT_H

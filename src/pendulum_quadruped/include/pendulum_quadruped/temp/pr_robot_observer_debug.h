@@ -5,7 +5,7 @@
 #ifndef PR_ROBOT_OBSERVER_DEBUG_H
 #define PR_ROBOT_OBSERVER_DEBUG_H
 
-#include "robot/pr_robot_types.h"
+#include "robot/pr_quadruped.h"
 
 #include <ros/ros.h>
 

@@ -1,5 +1,4 @@
-#ifndef PR_ROBOT_MODEL_H
-#define PR_ROBOT_MODEL_H
+#pragma once
 
 #include <memory>
 
@@ -55,4 +54,3 @@ private:
 
 }// namespace pr_robot
 
-#endif // PR_ROBOT_MODEL_H

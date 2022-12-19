@@ -1,12 +1,12 @@
 <launch>
 
     <arg name="robot_type" default="a1"/>
-    <arg name="robot_name" default="default"/>
+    <arg name="robot_name" default="default_sim"/>
 
     <!-- internal variable for finding robot package -->
     <arg name="robot_package" value="$(arg robot_type)_description"/>
 
-    <group ns= "$(arg robot_type)/$(arg robot_name)/gazebo">
+    <group ns= "$(arg robot_type)/$(arg robot_name)">
         <!-- load joint controller description file -->
         <rosparam file="$(find pr_gazebo)/config/$(arg robot_type)_joint_control.yaml" command="load"/>
     </group>

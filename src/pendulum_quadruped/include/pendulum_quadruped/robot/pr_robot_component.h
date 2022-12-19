@@ -1,5 +1,4 @@
-#ifndef PR_ROBOT_COMPONENT_H
-#define PR_ROBOT_COMPONENT_H
+#pragma once
 
 #include <cmath>
 #include <string>
@@ -155,6 +154,6 @@ private:
    */
   std::string d_child_joint;
 };
+
 }
 
-#endif // PR_ROBOT_COMPONENT_H

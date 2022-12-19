@@ -8,7 +8,7 @@
  * usually used for position, angle axis, velocity and general uses
  */
 template<typename Scale>
-using Vec3 = Eigen::Matrix<Scale, 6, 1>;
+using Vec3 = Eigen::Matrix<Scale, 3, 1>;
 
 /**
  * @brief Vec6: the 6 element vector typedef from eigen.

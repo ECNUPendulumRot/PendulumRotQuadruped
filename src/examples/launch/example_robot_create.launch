@@ -1,0 +1,6 @@
+<launch>
+    <!-- the robot should create in a name space of /'robot_type'/'robot_name' -->
+    <group ns="a1/default">
+        <node pkg="examples" type="example_robot_create" name="$(anon example_robot_create)"/>
+    </group>
+</launch>

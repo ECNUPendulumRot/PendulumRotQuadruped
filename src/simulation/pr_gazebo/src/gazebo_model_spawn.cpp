@@ -2,10 +2,11 @@
 
 const std::vector<std::string> pr_gazebo::GazeboSpawner::controller_list = {
   "joint_state_controller",
-  "FL_hip_controller", "FL_thigh_controller", "FL_calf_controller",
   "FR_hip_controller", "FR_thigh_controller", "FR_calf_controller",
-  "RL_hip_controller", "RL_thigh_controller", "RL_calf_controller",
-  "RR_hip_controller", "RR_thigh_controller", "RR_calf_controller"};
+  "FL_hip_controller", "FL_thigh_controller", "FL_calf_controller",
+  "RR_hip_controller", "RR_thigh_controller", "RR_calf_controller",
+  "RL_hip_controller", "RL_thigh_controller", "RL_calf_controller"
+  };
 
 geometry_msgs::Pose pr_gazebo::GazeboSpawner::model_pose = geometry_msgs::Pose();
 
@@ -24,7 +25,7 @@ bool pr_gazebo::GazeboSpawner::spawn_model(std::string urdf_param)
   msg.request.model_name = d_robot_type + "." + d_robot_name;
 
   msg.request.model_xml = urdf_raw;
-  msg.request.robot_namespace = "/" + d_robot_type + "/" + d_robot_name + "/gazebo";
+  msg.request.robot_namespace = "/" + d_robot_type + "/" + d_robot_name;
   msg.request.reference_frame = "world";
   msg.request.initial_pose = model_pose;
 
@@ -73,7 +74,7 @@ bool pr_gazebo::GazeboSpawner::delete_model()
 
 void pr_gazebo::GazeboSpawner::start_controllers()
 {
-  std::string service_name =  "/" + d_robot_type + "/" + d_robot_name + "/gazebo/controller_manager/switch_controller";
+  std::string service_name =  "/" + d_robot_type + "/" + d_robot_name + "/controller_manager/switch_controller";
   ros::ServiceClient controller_service = d_nh.serviceClient<controller_manager_msgs::SwitchController>(service_name);
 
   controller_manager_msgs::SwitchController msg;
@@ -96,7 +97,7 @@ void pr_gazebo::GazeboSpawner::start_controllers()
 
 bool pr_gazebo::GazeboSpawner::stop_controllers()
 {
-  std::string service_name = "/" + d_robot_type + "/" + d_robot_name + "/gazebo/controller_manager/switch_controller";
+  std::string service_name = "/" + d_robot_type + "/" + d_robot_name + "/controller_manager/switch_controller";
   ros::ServiceClient controller_service = d_nh.serviceClient<controller_manager_msgs::SwitchController>(service_name);
 
   controller_manager_msgs::SwitchController msg;
@@ -133,7 +134,7 @@ void pr_gazebo::GazeboSpawner::unload_controllers()
 
 void pr_gazebo::GazeboSpawner::load_controller_once(std::string controller_name)
 {
-  std::string service_name = "/" + d_robot_type + "/" + d_robot_name + "/gazebo/controller_manager/load_controller";
+  std::string service_name = "/" + d_robot_type + "/" + d_robot_name + "/controller_manager/load_controller";
   ros::ServiceClient controller_service = d_nh.serviceClient<controller_manager_msgs::LoadController>(service_name);
 
   controller_manager_msgs::LoadController msg;
@@ -154,7 +155,7 @@ void pr_gazebo::GazeboSpawner::load_controller_once(std::string controller_name)
 
 void pr_gazebo::GazeboSpawner::unload_controller_once(std::string controller_name)
 {
-  std::string service_name = "/" + d_robot_type + "/" + d_robot_name + "/gazebo/controller_manager/unload_controller";
+  std::string service_name = "/" + d_robot_type + "/" + d_robot_name + "/controller_manager/unload_controller";
   ros::ServiceClient controller_service = d_nh.serviceClient<controller_manager_msgs::UnloadController>(service_name);
 
   controller_manager_msgs::UnloadController msg;

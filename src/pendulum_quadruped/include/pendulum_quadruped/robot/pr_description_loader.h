@@ -1,5 +1,4 @@
-#ifndef PR_DESCRITION_LOADER_H
-#define PR_DESCRITION_LOADER_H
+#pragma once
 
 #include <string>
 #include <yaml-cpp/yaml.h>
@@ -7,11 +6,6 @@
 #include "robot/pr_robot_description.h"
 
 namespace pr_robot {
-
-/**
- * @typedef RobotDescriptionArrayPtr: std::shared_ptr<RobotDescriptionArray>
- */
-using RobotDescriptionArrayPtr = std::shared_ptr<RobotDescriptionArray>;
 
 class DescriptionLoader {
 
@@ -28,4 +22,3 @@ public:
 
 } // namespace pr_robot
 
-#endif // PR_DESCRITION_LOADER_H
