@@ -13,4 +13,5 @@ include_directories(${catkin_INCLUDE_DIRS})
 link_libraries(${catkin_LIBRARIES})
 
 add_executable(example_robot_create src/example_robot_create.cpp)
+add_executable(example_receive_joint_state src/example_receive_joint_state.cpp)
 

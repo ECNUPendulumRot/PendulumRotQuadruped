@@ -13,6 +13,8 @@
   <depend>roscpp</depend>
   <depend>urdf</depend>
   <depend>kdl_parser</depend>
+  <depend>sensor_msgs</depend>
+  <depend>roslib</depend>
   <depend>quadprogpp</depend>
 
   <export>

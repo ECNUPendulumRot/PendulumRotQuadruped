@@ -6,7 +6,6 @@
 
 namespace pr_robot {
 
-
 // forward declaration
 class Quadruped;
 class RobotModel;
@@ -32,7 +31,6 @@ using LegChain = std::array<pr_robot::Joint, 3>;
  * 2 vectors, one joint angles and second joint velocity
  */
 using LegState = Eigen::Matrix<double, 3, 2>;
-
 
 class Quadruped: public RobotBase {
 
@@ -82,10 +80,38 @@ public:
   void set_chain_state(LegState& state, QuadLeg leg_select);
 
   /**
-   * @brief get_state_info_pair: a function to tell obverser how to
+   * @brief set_joint_state: set the state of one koint
+   * @param chain_select: which chain to update. for quadruped, it will be 0, 1, 2 or 3
+   * @param joint_select: which joint in the chain to update
+   * @param angle: the observed joint angle
+   * @param velocity: the observed joint velocity
+   *
+   * @attention this function is just for observers
+   */
+  inline void set_joint_state(unsigned int chain_select, unsigned int joint_select, double angle, double velocity) {
+    d_joints[chain_select][joint_select].set_joint_angle(angle);
+    d_joints[chain_select][joint_select].set_joint_velocity(velocity);
+  }
+
+  /**
+   * @brief print_joint_angles: only for debug
+   */
+  void print_joint_angles(){
+    printf("[Quadruped]\n");
+    for (unsigned i = 0; i < 4; i++) {
+      for (unsigned j = 0; j < 3; j++) {
+        std::cout << d_joints[i][j].get_joint_angle() << " ";
+      }
+      std::cout << std::endl;
+    }
+  }
+
+  /**
+   * @brief get_state_info_pair: a function to tell obverser how to update joint state
+   * @attention when user define a new robot type, please implement this function with same name and same return type
    */
   static constexpr auto get_state_info_pair() {
-    return std::pair<int ,int>(4, 3);
+    return std::pair<unsigned, unsigned>(4, 3);
   }
 
 private:

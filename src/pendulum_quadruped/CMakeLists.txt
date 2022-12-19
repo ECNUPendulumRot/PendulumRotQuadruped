@@ -4,7 +4,7 @@ project(pendulum_quadruped)
 add_compile_options(-std=c++17)
 
 find_package(catkin REQUIRED COMPONENTS
-  roscpp urdf quadprogpp kdl_parser
+  roscpp urdf quadprogpp kdl_parser sensor_msgs roslib
 )
 
 find_package(orocos_kdl REQUIRED)
@@ -14,7 +14,7 @@ find_package(yaml-cpp REQUIRED)
 catkin_package(
     INCLUDE_DIRS include
     LIBRARIES pendulum_quadruped
-    CATKIN_DEPENDS quadprogpp urdf
+    CATKIN_DEPENDS quadprogpp urdf sensor_msgs roslib
 )
 
 

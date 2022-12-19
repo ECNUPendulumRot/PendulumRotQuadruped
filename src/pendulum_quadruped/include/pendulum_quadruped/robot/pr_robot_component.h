@@ -28,7 +28,6 @@ public:
    * @param max_angle: the max angle read from URDF
    */
   Joint(double min_angle, double max_angle): d_min_angle(min_angle), d_max_angle(max_angle) {
-    ;
   }
 
   /**
@@ -155,5 +154,5 @@ private:
   std::string d_child_joint;
 };
 
-}
+}// namespace pr_robot
 

@@ -3,12 +3,14 @@
 #include <memory>
 
 #include <ros/ros.h>
+#include <ros/package.h>
 
 #include "robot/pr_robot_model.h"
 #include "robot/pr_robot_description.h"
 #include "robot/pr_description_loader.h"
 #include "robot/pr_robot_types.h"
 
+enum {USE_URDF, USE_STRING};
 
 namespace pr_robot {
 
@@ -19,11 +21,10 @@ public:
 
   /**
    * @brief RobotGenerator: contructor of robot generator.
-   * @param ns: the namespace of the robot
-   * @param yaml_path: description file path
-   * @param urdf_path: URDF file path
+   * @param type: create robot with URDF or XACRO generated string in param
+   * @param nh: ros nodehandle for fetching URDF and param string
    */
-  RobotGenerator(const std::string& yaml_path, const std::string& urdf_path);
+  RobotGenerator(unsigned type, ros::NodeHandle& nh);
 
   /**
    * @brief get: return the entry of the robot ptr tuple
@@ -73,15 +74,26 @@ std::tuple<std::shared_ptr<T>> create_robot(const std::string &ns,
 
 
 template <typename... M>
-RobotGenerator<M...>::RobotGenerator(const std::string &yaml_path,
-                                     const std::string &urdf_path) {
-  ros::NodeHandle nh;
-  d_description_array_p = DescriptionLoader::load_from_yaml(yaml_path);
-  d_robot_model.load_from_xml(urdf_path);
+RobotGenerator<M...>::RobotGenerator(unsigned type, ros::NodeHandle& nh) {
+  std::string path_to_package = ros::package::getPath("a1_description");
+  std::string path_to_description = path_to_package + "/config/robot_description.yaml";
+
+  d_description_array_p = DescriptionLoader::load_from_yaml(path_to_description);
+
+  if (type == USE_URDF) {
+    std::string path_to_urdf = path_to_package + "/urdf/a1.urdf";
+    d_robot_model.load_from_xml(path_to_urdf);
+  } else if (type == USE_STRING) {
+    std::string urdf_string;
+    nh.getParam("robot_description", urdf_string);
+    d_robot_model.load_from_string(urdf_string);
+  } else {
+    printf(" Generator failed to initialize with type %d", type);
+    ros::shutdown();
+  }
+
   d_robot_tuple = create_robot<M...>(nh.getNamespace(), d_robot_model, *d_description_array_p, 0);
 }
-
-
 
 }// namespace pr_robot
 
